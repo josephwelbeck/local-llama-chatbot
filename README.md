@@ -1,12 +1,17 @@
-# 🤖 Local Llama Chatbot
+# 🤖 Local Llama Chatbot + Evaluation Pipeline
 
-A private, local AI chatbot built with Streamlit and Ollama. No data ever leaves your computer.
+A private, local AI chatbot built with Streamlit and Ollama, with a built-in evaluation pipeline to measure response quality. No data ever leaves your computer.
 
 ## Features
 - 💬 Multi-turn conversation with memory
 - ⚡ Streaming responses (typing effect)
 - 🔒 100% local — no API keys, no internet required
 - 🦙 Powered by Llama 3.2
+- 📊 Evaluation pipeline to measure answer quality
+
+## Files
+- `app.py` — The chatbot app
+- `eval_pipeline.py` — Evaluation pipeline to test response quality
 
 ## Requirements
 - Python 3.8+
@@ -16,28 +21,36 @@ A private, local AI chatbot built with Streamlit and Ollama. No data ever leaves
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/local-llama-chatbot.git
+git clone https://github.com/josephwelbeck/local-llama-chatbot.git
 cd local-llama-chatbot
 ```
 
-**2. Install dependencies**
+**2. Install chatbot dependencies**
 ```bash
-pip install -r requirements.txt
+pip install streamlit ollama
 ```
 
-**3. Pull the Llama model**
+**3. Install evaluation dependencies**
+```bash
+pip install transformers sentence-transformers faiss-cpu pandas scikit-learn
+```
+
+**4. Pull the Llama model**
 ```bash
 ollama pull llama3.2
 ```
 
-**4. Run the app**
+**5. Run the chatbot**
 ```bash
 streamlit run app.py
 ```
 
-The app will open in your browser at `http://localhost:8501`
+**6. Run the evaluation pipeline**
+```bash
+python eval_pipeline.py
+```
 
-## How it works
-- `streamlit` powers the chat UI
-- `ollama` runs the Llama 3.2 model locally on your machine
-- `st.session_state` stores the conversation history so the model remembers context
+## Evaluation Metrics
+- **Similarity** — how close the AI's answer is to the expected answer
+- **Context Score** — how well the retriever found the right information
+- **Groundedness** — whether the AI used the retrieved context or made things up
